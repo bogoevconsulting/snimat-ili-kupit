@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Гайд Дарьи Богоев : снимать или покупать жильё в Норвегии. Калькулятор на ваших цифрах">
+<meta property="og:title" content="Снимать или покупать в Норвегии ? Гайд с калькулятором">
+<meta property="og:type" content="website">
+<title>Снимать или покупать</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: phone-first single column guide opened from Instagram DM. Light-only by design (brand). Calculators in white cards, Darya's case in sun band, course in deep fjord */
+:root{
+  --paper:#F5F8F7; --ink:#1D2A31; --muted:#56676D; --fjord:#25646D; --deep:#1A4B52;
+  --mist:#DDE9E6; --sun:#F1B64A; --sunsoft:#FBEBC6; --line:#C9D8D5; --white:#FFFFFF;
+  --rent:#B9C7C4; --interest:#E39B5B; --costs:#9DB7B2;
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:720px;margin:0 auto;padding-inline:18px}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.15;margin:0;text-wrap:balance}
+p{margin:0}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--fjord)}
+section{padding-block:38px}
+section + section{border-top:1px solid var(--line)}
+.sec-h{margin:10px 0 12px;font-size:clamp(22px,4.6vw,30px)}
+.lead{color:var(--muted)}
+.term{font-weight:700;color:var(--deep);background:var(--mist);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+
+.hero{padding-block:28px 34px}
+.brand{font-family:var(--display);font-size:14px;color:var(--deep);font-weight:700}
+.hero h1{font-size:clamp(30px,8vw,48px);margin-top:20px}
+.hero h1 span{color:var(--fjord)}
+.hero .lead{margin-top:14px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.vs div{background:var(--white);border-radius:18px;padding:16px;border:1px solid var(--line)}
+.vs small{display:block;color:var(--muted);font-size:13px}
+.vs b{font-family:var(--display);font-size:clamp(20px,6vw,28px);display:block;margin-top:4px;font-variant-numeric:tabular-nums}
+
+.card{background:var(--white);border-radius:22px;padding:18px;border:1px solid var(--line)}
+.card + .card{margin-top:14px}
+.ctrl{display:grid;gap:2px;padding-block:9px;border-bottom:1px dashed var(--line)}
+.ctrl:last-child{border-bottom:0}
+.ctrl-top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.ctrl label{font-weight:600;font-size:15px}
+.ctrl output{font-family:var(--display);font-size:16px;color:var(--deep);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{width:100%;accent-color:var(--fjord);height:30px;margin:0}
+input[type=range]:focus-visible{outline:3px solid var(--sun);outline-offset:2px;border-radius:6px}
+
+.bar-row + .bar-row{margin-top:12px}
+.bar-row small{display:flex;justify-content:space-between;font-size:14px;color:var(--muted);margin-bottom:6px}
+.bar-row small b{color:var(--ink);font-variant-numeric:tabular-nums}
+.bar{display:flex;height:30px;border-radius:9px;overflow:hidden;background:var(--paper)}
+.bar span{display:block;height:100%;transition:width .25s ease}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+
+.lines{margin-top:14px;border-top:1px solid var(--line)}
+.lines div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.lines div span:last-child{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.lines .tot{background:var(--sunsoft);padding-inline:10px;border-radius:8px;border-bottom:0;margin-top:6px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.duo div{border-radius:14px;padding:12px 14px;min-width:0}
+.duo .a{background:var(--paper)} .duo .b{background:var(--sunsoft)}
+.duo small{display:block;font-size:13px;color:var(--muted)}
+.duo b{display:block;font-family:var(--display);font-size:clamp(18px,5vw,24px);margin-top:4px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.verdict{margin-top:12px;font-weight:600;background:var(--mist);border-radius:14px;padding:12px 14px}
+.note{font-size:13px;color:var(--muted);margin-top:10px}
+
+.nudge{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:14px;background:var(--deep);color:var(--white);border-radius:16px;padding:14px 16px}
+.nudge p{flex:1 1 220px;min-width:0;font-size:15px}
+.nudge a{color:var(--ink);background:var(--sun);font-weight:700;text-decoration:none;padding:9px 14px;border-radius:999px;font-size:14px;white-space:nowrap}
+.nudge a:focus-visible{outline:3px solid var(--white);outline-offset:2px}
+
+/* debt rows */
+.debt{display:grid;gap:12px}
+.drow{display:grid;grid-template-columns:72px 1fr;gap:10px;align-items:center}
+.drow .when{font-weight:700;font-size:14px;white-space:nowrap}
+.dtrack{height:22px;background:var(--mist);border-radius:7px;overflow:hidden;display:flex}
+.dtrack .owe{background:var(--fjord);height:100%;transition:width .25s ease}
+.drow .txt{grid-column:2;font-size:13.5px;color:var(--muted);margin-top:-4px;font-variant-numeric:tabular-nums}
+.drow .txt b{color:var(--ink)}
+
+/* case */
+.case{background:var(--sunsoft);border-radius:24px;padding:22px 20px}
+.case h2{font-size:clamp(21px,5vw,28px);margin:8px 0 12px}
+.steps{display:grid;gap:10px;margin-top:14px}
+.steps div{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:baseline;background:var(--white);border-radius:14px;padding:12px 14px}
+.steps b{font-family:var(--display);font-size:18px;color:var(--deep);white-space:nowrap;font-variant-numeric:tabular-nums}
+.steps span{font-size:15px}
+.capital{margin-top:14px;background:var(--deep);color:var(--white);border-radius:16px;padding:16px}
+.capital small{color:#C7DCDC;font-size:13px;display:block}
+.capital b{font-family:var(--display);font-size:clamp(26px,7vw,36px);color:var(--sun);display:block;margin-top:4px}
+
+ul.clean{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+.tbl{overflow-x:auto;border-radius:14px;border:1px solid var(--line);background:var(--white)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--mist);font-size:13px}
+tr:last-child td{border-bottom:0}
+
+.webinar{background:var(--sunsoft);border-radius:24px;padding:22px 20px;margin-block:8px 16px}
+.webinar h2{font-size:clamp(22px,5.4vw,30px);margin:8px 0 10px}
+.w-meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 16px}
+.w-meta span{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px;font-weight:600}
+.course{background:var(--deep);color:var(--white);border-radius:26px;padding:26px 20px;margin-block:0 36px}
+.course .eyebrow{color:var(--sun)}
+.course h2{font-size:clamp(23px,5.6vw,32px);margin:10px 0 12px}
+.course p{color:#D2E3E3}
+.course ul{margin:14px 0;padding-left:20px;display:grid;gap:7px;color:#EAF2F2}
+.perks{display:grid;gap:8px;margin:16px 0}
+.perks div{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:11px 14px}
+.perks b{color:var(--sun)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;background:var(--sun);color:var(--ink);font-family:var(--display);font-weight:700;font-size:16px;padding:17px 20px;border-radius:999px;text-decoration:none;border:0;cursor:pointer;box-shadow:0 6px 0 #C98E2B;text-align:center}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #C98E2B}
+.btn:focus-visible{outline:3px solid var(--white);outline-offset:4px}
+.btn-outline{background:var(--white);border:2px solid var(--ink);box-shadow:0 6px 0 var(--line)}
+.btn-outline:focus-visible{outline:3px solid var(--fjord)}
+.small{font-size:13px;color:#A9C6C6;margin-top:12px;text-align:center}
+footer{padding-block:20px 40px;font-size:13px;color:var(--muted)}
+@media (max-width:520px){ body{font-size:16px} .drow{grid-template-columns:62px 1fr} }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="hero">
+    <div class="brand">daria_norway · гайд</div>
+    <h1>Снимать или покупать <span>в Норвегии ?</span></h1>
+    <p class="lead">Двигайте ползунки и посчитайте на своих цифрах</p>
+    <div class="vs">
+      <div><small>🔑 Съём</small><b id="h-rent">19 000 kr</b></div>
+      <div><small>🏠 Своё, со всеми расходами</small><b id="h-own">24 000 kr</b></div>
+    </div>
+  </header>
+
+  <section id="calc">
+    <span class="eyebrow">1 · Калькулятор</span>
+    <h2 class="sec-h">Что дешевле на самом деле</h2>
+    <div class="card">
+      <div class="ctrl"><div class="ctrl-top"><label for="rent">Аренда в месяц</label><output id="o-rent"></output></div><input type="range" id="rent" min="6000" max="35000" step="500" value="19000"></div>
+      <div class="ctrl"><div class="ctrl-top"><label for="loan">Сумма кредита</label><output id="o-loan"></output></div><input type="range" id="loan" min="1000000" max="7000000" step="50000" value="3300000"></div>
+      <div class="ctrl"><div class="ctrl-top"><label for="rate">Ставка банка</label><output id="o-rate"></output></div><input type="range" id="rate" min="3" max="9" step="0.1" value="6"></div>
+      <div class="ctrl"><div class="ctrl-top"><label for="years">Срок кредита</label><output id="o-years"></output></div><input type="range" id="years" min="10" max="30" step="1" value="25"></div>
+      <div class="ctrl"><div class="ctrl-top"><label for="costs">Вода, мусор, страховка в месяц</label><output id="o-costs"></output></div><input type="range" id="costs" min="0" max="8000" step="100" value="2700"></div>
+    </div>
+    <div class="card">
+      <div class="bar-row"><small><span>🔑 Съём</span><b id="b-rent-t"></b></small><div class="bar"><span id="b-rent" style="background:var(--rent)"></span></div></div>
+      <div class="bar-row"><small><span>🏠 Своё</span><b id="b-own-t"></b></small><div class="bar"><span id="b-int" style="background:var(--interest)"></span><span id="b-cost" style="background:var(--costs)"></span><span id="b-av" style="background:var(--fjord)"></span></div></div>
+      <div class="legend"><span><i style="background:var(--interest)"></i>Renter - проценты банку</span><span><i style="background:var(--costs)"></i>Расходы на дом</span><span><i style="background:var(--fjord)"></i>Avdrag - гасит долг</span></div>
+      <div class="lines" aria-live="polite">
+        <div><span>Renter - уходят банку</span><span id="d-int"></span></div>
+        <div><span>+ Вода, мусор, страховка</span><span id="d-cost"></span></div>
+        <div><span>− Налог меньше на 22% от renter</span><span id="d-tax"></span></div>
+        <div class="tot"><span><b>Реально уходит при своём</b></span><span id="d-real"></span></div>
+      </div>
+      <div class="duo"><div class="a"><small>Съём : уходит навсегда</small><b id="r-rent"></b></div><div class="b"><small>Своё : реально уходит</small><b id="r-own"></b></div></div>
+      <p class="verdict" id="verdict"></p>
+      <p class="note">Avdrag не уходит, а уменьшает ваш долг - смотрите ниже. Цифры за первый год, это ориентир, а не расчёт банка</p>
+    </div>
+    <div class="nudge"><p>Как получить ставку ниже и одобрение банка - разбираем на курсе</p><a href="#course">Предзапись</a></div>
+  </section>
+
+  <section id="debt">
+    <span class="eyebrow">2 · Куда уходит avdrag</span>
+    <h2 class="sec-h">Ваш долг банку тает</h2>
+    <p class="lead">Платёж делится на <span class="term">renter</span> - «спасибо» банку, и <span class="term">avdrag</span> - погашение долга. Вначале долг тает медленно, потом всё быстрее</p>
+    <div class="card" style="margin-top:14px">
+      <div class="debt" id="debtrows"></div>
+      <p class="verdict" id="sell"></p>
+    </div>
+  </section>
+
+  <section id="case" style="border-top:0;padding-top:4px">
+    <div class="case">
+      <span class="eyebrow">3 · Реальный пример</span>
+      <h2>Наша квартира за 11 лет</h2>
+      <div class="steps">
+        <div><b>2,7 млн</b><span>купили 11 лет назад. Своих денег было около 200 000</span></div>
+        <div><b>16 000</b><span>в месяц мы тогда платили за съём в Осло</span></div>
+        <div><b>11 лет</b><span>платили кредит. Под залог квартиры ещё купили дачу, машину и квартиру в Кишинёве</span></div>
+        <div><b>5,8 млн</b><span>продали квартиру в 2026. Закрыли весь кредит</span></div>
+      </div>
+      <div class="capital"><small>Итог : вошли с ~200 000, а вышли без долга и с</small><b>~4,4 млн капитала</b><small>~2,6 млн на руках + дача + машина. Плюс квартира в Кишинёве</small></div>
+      <p class="note" style="color:var(--muted)">Если бы все 11 лет снимали - только аренды ушло бы больше 2 млн. И на руках - ноль</p>
+    </div>
+  </section>
+
+  <section id="trick">
+    <span class="eyebrow">4 · Хитрость норвежцев</span>
+    <h2 class="sec-h">Сдайте часть дома - и жилец платит ваш кредит</h2>
+    <p class="lead">У многих домов есть отдельная квартирка в цоколе. Её сдают и снижают свой платёж</p>
+    <div class="card" style="margin-top:14px">
+      <div class="ctrl"><div class="ctrl-top"><label for="sokkel">Сдаёте квартирку за</label><output id="o-sokkel"></output></div><input type="range" id="sokkel" min="0" max="20000" step="500" value="10000"></div>
+      <div class="lines">
+        <div><span>Платёж банку</span><span id="s-pay"></span></div>
+        <div><span>+ Вода, мусор, страховка</span><span id="s-cost"></span></div>
+        <div><span>− Платит ваш жилец</span><span id="s-ten"></span></div>
+        <div class="tot"><span><b>Остаётся из вашего кармана</b></span><span id="s-own"></span></div>
+      </div>
+      <div class="duo"><div class="a"><small>Съём в месяц</small><b id="s-rent"></b></div><div class="b"><small>Своё с жильцом</small><b id="s-own2"></b></div></div>
+      <p class="note">Без налога, если : вы сами живёте в доме, сдаёте меньшую часть (по стоимости аренды, не по метрам) и дом не разделён на секции. Иначе - 22% с аренды</p>
+    </div>
+    <div class="nudge"><p>Как найти дом с квартиркой для сдачи и проверить её - на курсе</p><a href="#course">Предзапись</a></div>
+  </section>
+
+  <section id="entry">
+    <span class="eyebrow">5 · Сколько нужно на старте</span>
+    <h2 class="sec-h">Разовые расходы</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Что</th><th>Сколько</th></tr></thead>
+      <tbody>
+        <tr><td><span class="term">egenkapital</span> - свои деньги</td><td>минимум 10% цены</td></tr>
+        <tr><td><span class="term">dokumentavgift</span> - госпошлина</td><td>2,5% (в borettslag нет)</td></tr>
+        <tr><td><span class="term">tinglysing</span> - регистрация</td><td>585 + 585 kr</td></tr>
+      </tbody></table></div>
+    <p class="note">Банк даёт максимум 5 ваших годовых доходов на все долги вместе. Пустая кредитка тоже считается</p>
+    <div class="nudge"><p>Нет первоначального взноса ? Husbanken, startlån, Leie til eie, Finit, kausjonist - разбираем на курсе</p><a href="#course">Предзапись</a></div>
+  </section>
+
+  <div class="webinar" id="webinar">
+    <span class="eyebrow">Бесплатный вебинар</span>
+    <h2>Из съёмного - в своё !</h2>
+    <p>Как купить жильё в Норвегии, даже если кажется, что денег нет</p>
+    <div class="w-meta"><span>📅 4 ноября</span><span>🕖 19:00 по Норвегии</span><span>💻 Онлайн, бесплатно</span></div>
+    <a class="btn btn-outline" href="https://bogoevconsulting.github.io/dom/" target="_blank" rel="noopener">Зарегистрироваться на вебинар</a>
+  </div>
+
+  <div class="course" id="course">
+    <span class="eyebrow">Только для тех, кто дочитал</span>
+    <h2>Курс «Как купить своё жильё в Норвегии»</h2>
+    <p>Мы ещё нигде о нём не объявляли. Старт - в середине ноября, мест - всего 50</p>
+    <ul>
+      <li>Как получить «да» от банка и ставку ниже</li>
+      <li>Что делать, если нет 10%</li>
+      <li>Visning и торги : как не переплатить</li>
+      <li>Покупка, продажа, рефинансирование, налоги</li>
+      <li>На нашем свежем опыте и с лицензированным риелтором</li>
+    </ul>
+    <div class="perks">
+      <div><b>Всего 50 мест</b> - старт в середине ноября</div>
+      <div><b>Первыми</b> узнаете об открытии регистрации</div>
+      <div><b>Самые выгодные условия</b> - для предзаписи</div>
+      <div><b>Ни к чему не обязывает</b> - анкета на 1 минуту</div>
+    </div>
+    <a class="btn" id="prereg" href="https://docs.google.com/forms/d/e/1FAIpQLSfmup7WyW9JHXiJUlOY7RCpPvu8Lt7Cvmq4JCmGoRFLYSE5Gg/viewform" target="_blank" rel="noopener">Заполнить анкету предзаписи</a>
+    <p class="small">Анкета не обязывает к покупке</p>
+  </div>
+
+  <footer>Дарья Богоев · D. Bogoev Consulting · @daria_norway<br>Это общая информация, а не финансовая консультация. Ставки и правила меняются : проверяйте условия в банке и Skatteetaten</footer>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var kr=function(n){return (Math.round(n/100)*100).toLocaleString('ru-RU').replace(/ /g,' ')+' kr'};
+  var mln=function(n){return (n/1e6).toLocaleString('ru-RU',{maximumFractionDigits:2})+' млн'};
+  function calc(){
+    var rent=+$('rent').value, loan=+$('loan').value, rate=+$('rate').value/100, years=+$('years').value, costs=+$('costs').value, sok=+$('sokkel').value;
+    var r=rate/12, n=years*12, pay=r>0?loan*r/(1-Math.pow(1+r,-n)):loan/n;
+    var b=loan,i12=0,a12=0; for(var m=0;m<12;m++){var i=b*r,a=pay-i;i12+=i;a12+=a;b-=a}
+    var intM=i12/12, avM=a12/12, tax=intM*.22, real=intM-tax+costs, own=pay+costs;
+    $('o-rent').textContent=kr(rent); $('o-loan').textContent=mln(loan); $('o-rate').textContent=(rate*100).toFixed(1).replace('.',',')+'%';
+    $('o-years').textContent=years+' лет'; $('o-costs').textContent=kr(costs); $('o-sokkel').textContent=kr(sok);
+    $('h-rent').textContent=kr(rent); $('h-own').textContent=kr(own);
+    var max=Math.max(rent,own);
+    $('b-rent').style.width=rent/max*100+'%'; $('b-int').style.width=intM/max*100+'%'; $('b-cost').style.width=costs/max*100+'%'; $('b-av').style.width=avM/max*100+'%';
+    $('b-rent-t').textContent=kr(rent); $('b-own-t').textContent=kr(own);
+    $('d-int').textContent=kr(intM); $('d-cost').textContent='+ '+kr(costs); $('d-tax').textContent='− '+kr(tax); $('d-real').textContent=kr(real);
+    $('r-rent').textContent=kr(rent); $('r-own').textContent=kr(real);
+    var d=rent-real;
+    $('verdict').textContent=d>0?'При своём безвозвратно уходит на '+kr(d)+' в месяц меньше. И ещё '+kr(avM)+' в месяц гасят ваш долг'
+      :'С такими цифрами съём сейчас дешевле на '+kr(-d)+' в месяц. Но '+kr(avM)+' в месяц всё равно гасят ваш долг';
+    function bal(mo){var bb=loan;for(var k=0;k<mo;k++){bb-=pay-bb*r}return Math.max(0,bb)}
+    var marks=[0,5,10,15,20].filter(function(y){return y<years}); marks.push(years);
+    var h='';
+    marks.forEach(function(y){var v=bal(y*12), w=v/loan*100;
+      h+='<div class="drow"><span class="when">'+(y===0?'Сейчас':y+' лет')+'</span><div class="dtrack"><span class="owe" style="width:'+w+'%"></span></div>'+
+         '<span class="txt">Должны <b>'+mln(v)+'</b>'+(y===0?'':' · уже погасили <b>'+mln(loan-v)+'</b>')+'</span></div>'});
+    $('debtrows').innerHTML=h;
+    var five=bal(60);
+    $('sell').textContent='Продадите через 5 лет за ту же цену - банку отдадите только '+kr(five)+', а '+kr(loan-five)+' плюс ваш первый взнос останутся вам';
+    var pocket=Math.max(0,pay+costs-sok);
+    $('s-pay').textContent=kr(pay); $('s-cost').textContent='+ '+kr(costs); $('s-ten').textContent='− '+kr(sok); $('s-own').textContent=kr(pocket);
+    $('s-rent').textContent=kr(rent); $('s-own2').textContent=kr(pocket);
+  }
+  ['rent','loan','rate','years','costs','sokkel'].forEach(function(id){$(id).addEventListener('input',calc)});
+  calc();
+})();
+</script>
+
+</body>
+</html>
